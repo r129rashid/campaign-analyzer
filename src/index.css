@@ -1,0 +1,79 @@
+/* Layout-only responsive overrides — all colors/design stay in inline styles */
+
+.app-shell {
+  padding: 30px 34px;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.funnel-row {
+  display: flex;
+  gap: 12px;
+}
+
+.campaign-scroll {
+  width: 100%;
+}
+
+/* Tablet — 900px */
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .funnel-row {
+    flex-wrap: wrap;
+  }
+  .funnel-row > * {
+    min-width: calc(50% - 6px);
+    flex: 1 1 calc(50% - 6px);
+  }
+}
+
+/* Mobile — 600px */
+@media (max-width: 600px) {
+  .app-shell {
+    padding: 16px;
+  }
+  .dash-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-actions {
+    justify-content: flex-end;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .funnel-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .funnel-row > * {
+    min-width: 155px;
+    flex: 0 0 155px;
+  }
+  .campaign-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

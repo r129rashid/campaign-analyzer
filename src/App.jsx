@@ -157,7 +157,7 @@ function CampaignBars({campaigns}){
     {key:"un",color:T.slate,label:"Unrouted",get:c=>c.unrouted},
   ];
   return(
-    <div>
+    <div className="campaign-scroll">
       <div style={{display:"flex",gap:18,marginBottom:16,flexWrap:"wrap"}}>
         {segs.map(s=>(
           <div key={s.key} style={{display:"flex",alignItems:"center",gap:6,fontSize:12}}>
@@ -236,10 +236,10 @@ export default function App(){
   const insights=campaigns&&agg?genInsights(campaigns,agg):[];
 
   return(
-    <div style={{background:T.bg,minHeight:"100vh",fontFamily:"'Inter',system-ui,-apple-system,sans-serif",padding:"30px 34px",boxSizing:"border-box"}}>
+    <div className="app-shell" style={{background:T.bg,minHeight:"100vh",fontFamily:"'Inter',system-ui,-apple-system,sans-serif",boxSizing:"border-box"}}>
 
       {/* Header */}
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:30,gap:16}}>
+      <div className="dash-header" style={{marginBottom:30,gap:16}}>
         <div>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:5}}>
             <div style={{width:5,height:30,background:T.rose,borderRadius:3,flexShrink:0}}/>
@@ -251,14 +251,24 @@ export default function App(){
             {dateRange??"Upload a report to begin"}
           </p>
         </div>
-        <label style={{cursor:"pointer",flexShrink:0}}>
-          <input type="file" accept=".xlsx,.xls" onChange={e=>e.target.files[0]&&loadFile(e.target.files[0])} style={{display:"none"}}/>
-          <div style={{background:T.rose,color:"white",padding:"11px 22px",borderRadius:12,fontWeight:600,
-            fontSize:13,cursor:"pointer",display:"flex",alignItems:"center",gap:9,
-            boxShadow:"0 4px 16px rgba(139,26,74,0.38)",whiteSpace:"nowrap"}}>
-            📤 Upload GYB Report
-          </div>
-        </label>
+        <div className="header-actions">
+          {campaigns&&(
+            <button onClick={()=>{setCampaigns(null);setDateRange(null);}}
+              style={{background:"white",color:T.rose,padding:"11px 18px",borderRadius:12,fontWeight:600,
+                fontSize:13,cursor:"pointer",border:`1.5px solid ${T.rose}`,display:"flex",
+                alignItems:"center",gap:7,whiteSpace:"nowrap"}}>
+              ↩ New Report
+            </button>
+          )}
+          <label style={{cursor:"pointer"}}>
+            <input type="file" accept=".xlsx,.xls" onChange={e=>e.target.files[0]&&loadFile(e.target.files[0])} style={{display:"none"}}/>
+            <div style={{background:T.rose,color:"white",padding:"11px 22px",borderRadius:12,fontWeight:600,
+              fontSize:13,cursor:"pointer",display:"flex",alignItems:"center",gap:9,
+              boxShadow:"0 4px 16px rgba(139,26,74,0.38)",whiteSpace:"nowrap"}}>
+              📤 Upload GYB Report
+            </div>
+          </label>
+        </div>
       </div>
 
       {/* Empty state */}
@@ -277,7 +287,7 @@ export default function App(){
       {campaigns&&agg&&(
         <>
           {/* KPI Cards */}
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:16,marginBottom:22}}>
+          <div className="kpi-grid" style={{marginBottom:22}}>
             {[
               {icon:"👥",label:"Total Leads",value:K(agg.totalLeads),sub:"All campaigns combined",accent:T.rose},
               {icon:"🏢",label:"Total Visited",value:K(agg.totalVis),sub:`${pct(agg.totalVis,agg.totalLeads)}% visit rate`,accent:T.teal},
@@ -297,7 +307,7 @@ export default function App(){
           <div style={cs({padding:"22px 22px 20px",marginBottom:22})}>
             <h2 style={{margin:"0 0 4px",fontSize:14,fontWeight:700,color:T.rose}}>Location Funnels</h2>
             <p style={{margin:"0 0 18px",fontSize:12,color:T.muted}}>Leads → Future Appointment → Visited → Joined · Best join rate highlighted</p>
-            <div style={{display:"flex",gap:12}}>
+            <div className="funnel-row">
               {[
                 {locKey:"banjarahills",data:agg.loc.bh},
                 {locKey:"kukatpally",data:agg.loc.kk},
