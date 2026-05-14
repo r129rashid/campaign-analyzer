@@ -32,6 +32,24 @@
   width: 100%;
 }
 
+.home-screen {
+  width: 100%;
+  max-width: 760px;
+  padding: 48px 34px;
+}
+
+.home-choices {
+  display: flex;
+  gap: 16px;
+}
+
+.control-bar {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 /* Tablet — 900px */
 @media (max-width: 900px) {
   .kpi-grid {
@@ -75,5 +93,14 @@
   .campaign-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  .home-screen {
+    padding: 32px 16px;
+  }
+  .home-choices {
+    flex-direction: column;
+  }
+  .control-bar {
+    gap: 12px;
   }
 }
